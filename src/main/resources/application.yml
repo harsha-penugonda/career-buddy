@@ -1,0 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:password@localhost:27017/dex?authSource=admin&authMechanism=SCRAM-SHA-1
+      database: CareerBuddy
+
