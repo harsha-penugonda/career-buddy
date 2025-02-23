@@ -1,10 +1,36 @@
 server:
-  port: 8080
-  servlet:
-    context-path: /
+    port: 8080
+    servlet:
+        context-path: /
 spring:
-  data:
-    mongodb:
-      uri: mongodb://root:password@localhost:27017/dex?authSource=admin&authMechanism=SCRAM-SHA-1
-      database: CareerBuddy
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        client-id: ${GOOGLE_CLIENT_ID}
+                        client-secret: ${GOOGLE_CLIENT_SECRET}
+                        scope:
+                            - email
+                            - profile
+                    github:
+                        client-id: ${GITHUB_CLIENT_ID}
+                        client-secret: ${GITHUB_CLIENT_SECRET}
+                        scope:
+                            - user:email
+                            - read:user
+    data:
+        mongodb:
+            uri: mongodb://root:password@localhost:27017/careerbuddy?authSource=admin&authMechanism=SCRAM-SHA-1
+            database: careerbuddy
+            managed:
+                server: localhost
+                port: 27017
+                username: root
+                password: password
+                parameters: ?authSource=admin&authMechanism=SCRAM-SHA-1
 
+# Add these properties to your existing configuration
+jwt:
+    secret: sL0MvJoIV5vtV67nIJdbrkA/wUF4uvJji60h4XgcuQg=
+    expiration: 86400000 # 24 hours in milliseconds

@@ -1,4 +1,4 @@
-package com.CareerBuddy.bo;
+package com.careerbuddy.bo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

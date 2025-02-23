@@ -1,11 +1,11 @@
-package com.CareerBuddy;
+package com.careerbuddy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CareerBuddyApplication {
+public class careerbuddyApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CareerBuddyApplication.class, args);
+        SpringApplication.run(careerbuddyApplication.class, args);
     }
 }
