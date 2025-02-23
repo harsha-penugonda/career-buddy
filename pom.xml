@@ -15,7 +15,7 @@
 	<description>CareerBuddy - An Application to apply jobs together</description>
 	<properties>
 		<java.version>21</java.version>
-		<jacoco.version>0.8.7</jacoco.version>
+		<jacoco.version>0.8.12</jacoco.version>
 		<spotless.version>2.43.0</spotless.version>
 		<owasp.version>12.1.0</owasp.version>
 	</properties>
@@ -134,6 +134,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<nvdApiKey>029fd29d-13c1-42c9-b3f8-c6eae3af42f4</nvdApiKey>
 					<format>XML</format>
 				</configuration>
 			</plugin>
