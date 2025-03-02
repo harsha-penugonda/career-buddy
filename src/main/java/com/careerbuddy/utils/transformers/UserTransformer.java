@@ -1,8 +1,8 @@
 package com.careerbuddy.utils.transformers;
 
 import com.careerbuddy.bo.UserBO;
-import com.careerbuddy.domain.UserDAO;
 import com.careerbuddy.dto.UserDTO;
+import com.careerbuddy.model.UserDAO;
 
 public class UserTransformer {
 

@@ -2,7 +2,7 @@ package com.careerbuddy.controller;
 
 import com.careerbuddy.dto.AuthResponse;
 import com.careerbuddy.dto.UserDTO;
-import com.careerbuddy.service.UserService;
+import com.careerbuddy.interfaces.AuthServiceExternal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserService userService;
+    private final AuthServiceExternal authServiceExternal;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody UserDTO userDTO) {
-        userService.createUser(userDTO);
-        return new ResponseEntity<>(userService.authenticate(userDTO), HttpStatus.OK);
+        authServiceExternal.createUser(userDTO);
+        return new ResponseEntity<>(authServiceExternal.authenticate(userDTO), HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody UserDTO userDTO) {
-        return new ResponseEntity<>(userService.authenticate(userDTO), HttpStatus.OK);
+        return new ResponseEntity<>(authServiceExternal.authenticate(userDTO), HttpStatus.OK);
     }
 }

@@ -1,6 +1,6 @@
 package com.careerbuddy.service;
 
-import com.careerbuddy.domain.UserDAO;
+import com.careerbuddy.model.UserDAO;
 import com.careerbuddy.repository.UserRepository;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

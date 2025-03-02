@@ -1,9 +1,10 @@
 package com.careerbuddy.service;
 
 import com.careerbuddy.bo.UserBO;
-import com.careerbuddy.domain.UserDAO;
 import com.careerbuddy.dto.AuthResponse;
 import com.careerbuddy.dto.UserDTO;
+import com.careerbuddy.interfaces.AuthServiceExternal;
+import com.careerbuddy.model.UserDAO;
 import com.careerbuddy.repository.UserRepository;
 import com.careerbuddy.security.JwtTokenUtil;
 import com.careerbuddy.utils.transformers.UserTransformer;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService {
+public class AuthService implements AuthServiceExternal {
 
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
@@ -43,6 +44,7 @@ public class UserService {
         return UserTransformer.toUserDTO(UserTransformer.toUserBO(userDAO));
     }
 
+    @Override
     public void createUser(UserDTO UserDTO) {
         if (UserDTO == null) {
             log.info("UserDTO is null");
@@ -60,6 +62,7 @@ public class UserService {
         log.info("New user created: {}", userBO.getUsername());
     }
 
+    @Override
     public AuthResponse authenticate(UserDTO userDTO) {
         log.info("Authenticating user: {}", userDTO.getUsername());
         Authentication authentication = authenticationManager.authenticate(
@@ -69,5 +72,13 @@ public class UserService {
         String token = jwtTokenUtil.generateToken(userDetails);
 
         return AuthResponse.builder().token(token).build();
+    }
+
+    public static String getKey(String s) {
+        return s.substring(0, s.indexOf(":"));
+    }
+
+    public static String getValue(String s) {
+        return s.substring(s.indexOf(":") + 1);
     }
 }

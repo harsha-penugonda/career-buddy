@@ -1,4 +1,4 @@
-package com.careerbuddy.domain;
+package com.careerbuddy.model;
 
 import java.util.List;
 import lombok.Data;

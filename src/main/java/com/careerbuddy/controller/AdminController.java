@@ -1,8 +1,11 @@
 package com.careerbuddy.controller;
 
-import com.careerbuddy.service.AdminService;
+import com.careerbuddy.dto.InfoDTO;
+import com.careerbuddy.interfaces.AdminServiceExternal;
+import java.net.UnknownHostException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final AdminService adminService;
+    private final AdminServiceExternal adminServiceExternal;
 
     @GetMapping("/info")
-    public String getAdminInfo() {
-        return "Admin Info";
+    public ResponseEntity<InfoDTO> getAdminInfo() throws UnknownHostException {
+        return ResponseEntity.ok().body(adminServiceExternal.getAdminInfo());
     }
 }
