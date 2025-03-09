@@ -2,6 +2,10 @@ server:
     port: 8080
     servlet:
         context-path: /
+        session:
+            cookie:
+                http-only: true
+                secure: true
 spring:
     security:
         oauth2:
@@ -34,3 +38,8 @@ spring:
 jwt:
     secret: sL0MvJoIV5vtV67nIJdbrkA/wUF4uvJji60h4XgcuQg=
     expiration: 86400000 # 24 hours in milliseconds
+management:
+    endpoints:
+        web:
+            exposure:
+                include=health,metrics,loggers:

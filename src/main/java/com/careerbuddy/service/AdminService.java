@@ -5,7 +5,6 @@ import com.careerbuddy.interfaces.AdminServiceExternal;
 import com.careerbuddy.utils.constants.ApplicationConstants;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

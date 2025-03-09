@@ -1,6 +1,10 @@
 package com.careerbuddy.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
@@ -11,11 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.io.IOException;
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.util.Map;
 
 @ControllerAdvice
 @Slf4j
@@ -50,8 +49,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return exception.getMessage() != null
                 && exception instanceof IOException
                 && (exception.getMessage().contains("Broken pipe")
-                || exception.getMessage().contains("connection was aborted")
-                || exception.getMessage().contains("Client closed connection"));
+                        || exception.getMessage().contains("connection was aborted")
+                        || exception.getMessage().contains("Client closed connection"));
     }
 
     public ResponseEntity<Object> respondWithError(WebRequest request, Exception exception, HttpStatus status) {

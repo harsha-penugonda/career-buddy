@@ -3,6 +3,7 @@ package com.careerbuddy.controller;
 import com.careerbuddy.dto.AuthResponse;
 import com.careerbuddy.dto.UserDTO;
 import com.careerbuddy.interfaces.AuthServiceExternal;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authorization", description = "Authorization API")
 public class AuthController {
 
     private final AuthServiceExternal authServiceExternal;

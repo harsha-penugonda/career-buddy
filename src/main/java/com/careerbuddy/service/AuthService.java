@@ -46,10 +46,17 @@ public class AuthService implements AuthServiceExternal {
 
     @Override
     public void createUser(UserDTO UserDTO) {
-        if (UserDTO == null) {
+        if (UserDTO == null
+                || StringUtils.isBlank(UserDTO.getUsername())
+                || StringUtils.isBlank(UserDTO.getPassword())) {
             log.info("UserDTO is null");
             return;
         }
+        if (!UserDTO.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,}$")) {
+            log.info("Password does not meet complexity requirements");
+            throw new RuntimeException("Password does not meet complexity requirements");
+        }
+
         UserBO userBO = UserTransformer.toUserBO(UserDTO);
         // check if user already exists
         if (userRepository.findByEmail(userBO.getUsername()).isPresent()) {

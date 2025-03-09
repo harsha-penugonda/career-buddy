@@ -7,5 +7,4 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @RequiredArgsConstructor
 @PropertySource("classpath:git.properties")
-public class AppConfig {
-}
+public class AppConfig {}

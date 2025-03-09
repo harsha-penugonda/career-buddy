@@ -10,7 +10,6 @@ public class UserTransformer {
         return UserBO.builder()
                 .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
-                .roles(userDTO.getRoles())
                 .build();
     }
 
@@ -18,7 +17,6 @@ public class UserTransformer {
         return UserDTO.builder()
                 .username(userBO.getUsername())
                 .password(userBO.getPassword())
-                .roles(userBO.getRoles())
                 .build();
     }
 
