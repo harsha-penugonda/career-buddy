@@ -19,11 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDAO userDAO = userRepository
-                .findByEmail(email)
+                .findByUserEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
         return new org.springframework.security.core.userdetails.User(
-                userDAO.getEmail(),
+                userDAO.getUserEmail(),
                 userDAO.getPassword(),
                 userDAO.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
     }

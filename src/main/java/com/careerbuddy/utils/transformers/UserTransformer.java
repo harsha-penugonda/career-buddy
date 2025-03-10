@@ -8,29 +8,29 @@ public class UserTransformer {
 
     public static UserBO toUserBO(UserDTO userDTO) {
         return UserBO.builder()
-                .username(userDTO.getUsername())
+                .userEmail(userDTO.getUserEmail())
                 .password(userDTO.getPassword())
                 .build();
     }
 
     public static UserDTO toUserDTO(UserBO userBO) {
         return UserDTO.builder()
-                .username(userBO.getUsername())
+                .userEmail(userBO.getUserEmail())
                 .password(userBO.getPassword())
                 .build();
     }
 
     public static UserDAO toUserDAO(UserBO userBO) {
-        UserDAO userDAO = new UserDAO();
-        userDAO.setEmail(userBO.getUsername());
-        userDAO.setPassword(userBO.getPassword());
-        userDAO.setRoles(userBO.getRoles());
-        return userDAO;
+        return UserDAO.builder()
+                .userEmail(userBO.getUserEmail())
+                .password(userBO.getPassword())
+                .roles(userBO.getRoles())
+                .build();
     }
 
     public static UserBO toUserBO(UserDAO userDAO) {
         return UserBO.builder()
-                .username(userDAO.getEmail())
+                .userEmail(userDAO.getUserEmail())
                 .password(userDAO.getPassword())
                 .roles(userDAO.getRoles())
                 .build();

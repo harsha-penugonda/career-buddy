@@ -47,33 +47,39 @@ public class AuthService implements AuthServiceExternal {
     @Override
     public void createUser(UserDTO UserDTO) {
         if (UserDTO == null
-                || StringUtils.isBlank(UserDTO.getUsername())
+                || StringUtils.isBlank(UserDTO.getUserEmail())
                 || StringUtils.isBlank(UserDTO.getPassword())) {
             log.info("UserDTO is null");
             return;
         }
+        // check if userEmail is an valid email
+        if (!UserDTO.getUserEmail().matches("^(.+)@(.+)$")) {
+            log.info("userEmail is not an email, userEmail: {}", UserDTO.getUserEmail());
+            throw new RuntimeException("userEmail is not an valid email");
+        }
+        // check if password meets standard requirements
         if (!UserDTO.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,}$")) {
-            log.info("Password does not meet complexity requirements");
-            throw new RuntimeException("Password does not meet complexity requirements");
+            log.info("Password does not meet standard requirements");
+            throw new RuntimeException("Password does not meet standard requirements, Make sure it has at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character");
         }
 
         UserBO userBO = UserTransformer.toUserBO(UserDTO);
         // check if user already exists
-        if (userRepository.findByEmail(userBO.getUsername()).isPresent()) {
-            log.info("User already exists: {}", userBO.getUsername());
+        if (userRepository.findByUserEmail(userBO.getUserEmail()).isPresent()) {
+            log.info("User already exists: {}", userBO.getUserEmail());
             throw new RuntimeException("User already exists");
         }
         userBO.setRoles(List.of("ROLE_USER"));
         userBO.setPassword(passwordEncoder.encode(userBO.getPassword()));
         userRepository.save(UserTransformer.toUserDAO(userBO));
-        log.info("New user created: {}", userBO.getUsername());
+        log.info("New user created: {}", userBO.getUserEmail());
     }
 
     @Override
     public AuthResponse authenticate(UserDTO userDTO) {
-        log.info("Authenticating user: {}", userDTO.getUsername());
+        log.info("Authenticating user: {}", userDTO.getUserEmail());
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
+                new UsernamePasswordAuthenticationToken(userDTO.getUserEmail(), userDTO.getPassword()));
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String token = jwtTokenUtil.generateToken(userDetails);
